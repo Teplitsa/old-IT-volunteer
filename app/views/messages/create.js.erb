@@ -1,0 +1,12 @@
+<% if @message.errors.any? %>
+  <% html = escape_javascript(render_errors(@message)) %>
+
+  $('#new_message .errors').html("<%= html %>");
+<% else %>
+  $('#new_message .errors').html("<h4> сообщение успешно отправленно </h4>")
+
+  window.setTimeout(function() {
+    $('#new_message').modal('hide') 
+    $('#new_message .errors').html('')
+  }, 700)
+<% end %>

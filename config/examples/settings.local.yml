@@ -1,0 +1,11 @@
+requests_local: false
+services:
+  facebook:
+    id: 'example'
+    secret: 'secret'
+
+secret_token: "super_secret_token"
+default_url_options:
+  host: actual.host.ru
+mail_from: mail@from.ru
+

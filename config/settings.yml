@@ -1,0 +1,4 @@
+services:
+  facebook:
+    id: 'example'
+    secret: 'secret'

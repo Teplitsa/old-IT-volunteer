@@ -1,0 +1,28 @@
+= render 'layouts/breadcrumbs'
+= content_for(:new_button) do
+  .span2
+    = render 'new_button'
+= render 'layouts/add_and_search_panel'
+
+= content_for(:filters) do
+  = render partial: 'organizations/filters'
+
+- @organizations.each do |organization|
+  %article.task_well
+    .row
+      .span8 
+        .row.article-content-block
+          .span2
+            = link_to image_tag(organization.logo, :class => "rounded", :alt => organization.name), organization, :title => "Go to organization profile"
+          .span6
+            %h2= organization.name
+            %p= organization.about
+            %p= link_to 'Подробнее', organization, :class => "btn btn-mini", :title => "Go to organization profile"
+
+      .span-tasksidebar
+        .task-sidebar-block-item
+          = join_organization_button(organization)
+        .task-sidebar-block-item
+          %i.icon-user
+          Участников 
+          ="(#{organization.users.count})"

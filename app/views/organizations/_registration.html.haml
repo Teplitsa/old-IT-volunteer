@@ -1,0 +1,19 @@
+.control-group
+  = f.label "Вы представитель организации?", class: 'control-label'
+  .controls
+    = f.check_box :org_presenter, :tabindex => "8"
+
+- f.object.organizations.build unless f.object.organizations.present?
+
+= f.simple_fields_for :organizations do |org_form|
+  %fieldset
+    = org_form.input :name, placeholder: "Название вашей организации", label: 'Название организации', input_html: {class: 'span3', :tabindex => "9"}
+    = org_form.input :address, label: 'Адрес', input_html: {:tabindex => "10"}
+
+    .t-right
+      = f.file_field :logo, class: "hide"
+      = f.file_field :logo_cache, class: "hide"
+    
+    = org_form.input :website, placeholder: "http://site.ru", label: 'Сайт', input_html: {:tabindex => "11"}
+
+    = org_form.input :about, as: :text, label: 'Расскажите, чем занимается организация', input_html: {class: 'span3', rows: 3, :tabindex => "12"}

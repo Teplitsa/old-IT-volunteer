@@ -1,0 +1,20 @@
+
+= simple_form_for @message do |f|
+  
+  .span6.errors
+    = render_errors(@message)
+
+  .span6
+    - if f.object.receiver_id.present?
+      = f.input :receiver_id, as: :hidden
+    - else 
+      .control-group
+        .controls
+          %label.control-label{for: :receiver_id} получатель
+          = f.input :receiver_id, label: false, collection: current_user.potential_collocutor
+    
+    - if f.object.receiver_id.present?
+      = f.input :dialog_id,   as: :hidden
+
+    .control-group
+      .controls= f.text_area :body, col: 40, rows: 7, class: "span6"

@@ -1,0 +1,79 @@
+= simple_form_for @task, html: { class: '' } do |f|
+  
+  .span12
+    - if @task.errors.any?
+      #error_explanation.well.alert-error
+        %h3
+          = t('errors.messages.not_saved', :count => resource.errors.count)
+        %ul
+          - @task.errors.full_messages.each do |msg|
+            - if @task.errors[:file].present?
+              %li= t('errors.messages.extension_list',  |
+                     extensions: @task.file.white_list) |
+            - else
+              %li= msg
+
+  .span8
+    .control-group
+      %label.control-label{:for => :organization} Ваша организация
+      .controls
+        = f.input :organization_id, :label => false, :collection => @organizations
+
+    .control-group
+      %label.control-label.pull-left{:for => :title} 
+        %abbr{:title => 'Обязательное поле'} *
+        Краткое описание задачи
+      %a.west{:href => "#", :title => "Заголовок задачи должен быть кратким и емким. Уложитесь в 50 символов. Хороший пример заголовка:“Фонду А нужно создать сайт для ...”"} 
+        %i.icon-question-sign      
+      .controls
+        = f.text_field :title, :class => "span7"
+
+      %p.charsLeft
+        Осталось знаков:
+        %span#task_title_charsLeft         
+
+    .control-group
+      %label.control-label.pull-left{:for => :problem} 
+        %abbr{:title => 'Обязательное поле'} *
+        Дополнительная информация
+      %a.west{:href => "#", :title => "Опишите проблему, которая перед вами стоит. “Готовится [мероприятие], посвященное [тема]."}
+        %i.icon-question-sign
+      .controls
+        = f.text_area :problem, col: 40, rows: 7, :class => "span7"
+ 
+
+      %p.charsLeft
+        Осталось знаков:
+        %span#charsLeft
+
+    .control-group
+      %label.control-label{:for => :image} Прикрепить картинку
+      .controls
+        = f.file_field :image
+    .control-group
+      %label.control-label{:for => :file} Приложить файл
+      .controls
+        = f.file_field :file
+
+  .span-tasksidebar
+    .control-group
+      %label.control-label.pull-left{:for => :task_type_id} Тип задачи
+      %a.west{:href => "#", :title => "Мы подобрали для вас наиболее часто встречающиеся типы IT-задач. Выберите подходящий тип под вашу задачу."}
+        %i.icon-question-sign       
+      .controls
+        = f.select :task_type_id, options_for_select( TaskType.all.map { |type| [type.name, type.id] }, @task.task_type_id )
+
+    .control-group
+      %label.control-label{:for => :deadline} Крайний срок
+
+    .control-group    
+      #dp3.input-append.date{"data-date" => "", "data-date-format" => "dd-mm-yyyy"}
+        = f.text_field :deadline, value: @task.deadline.try(:strftime, "%d-%m-%Y"), class: :span2, size: 16
+        %span.add-on
+          %i.icon-th
+
+    = render partial: 'tasks/prize_types'
+
+  .span7.t-right
+    = link_to 'Отмена', tasks_path, class: 'btn'
+    = f.button :submit, 'Отправить', class: 'btn btn-success'

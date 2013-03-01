@@ -1,0 +1,11 @@
+//= require jquery
+//= require jquery_ujs
+//= require twitter/bootstrap
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
+//= require bootstrap-datepicker
+//= require jquery.tipsy
+//= require select-box
+//= require bootstrap
+//= require preferences
+//= require limit

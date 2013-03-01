@@ -1,0 +1,1 @@
+jQuery('.ignore_or_unignore_link_<%= @user.id %>').text('заблокировать').attr('href', '<%= ignore_user_path(@user) %>').removeClass('btn-success').addClass('btn-warning')

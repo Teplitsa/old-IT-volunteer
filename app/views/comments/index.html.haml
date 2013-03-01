@@ -1,0 +1,19 @@
+%article.task_well
+  .row
+    .span8
+      %h2 
+        Ваши комментарии :
+        = @comments.count
+      .comments
+
+        - @comments.each do |comment|
+          .user-comment-date
+            %span= l comment.created_at, format: :short
+
+          .user-comment-body
+            %p
+              %i.icon-tasks
+              = comment.commentable.title
+            %p
+              %i.icon-comment
+              = comment.body

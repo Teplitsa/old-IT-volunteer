@@ -1,0 +1,18 @@
+.span4.task_well
+  %h1 Платные задачи
+  
+  - @paid_tasks.each do |task|
+
+    .row.taskbox
+      .span1
+        = link_to task.owner do
+          = image_tag(task.owner.avatar.url(:thumb), :data => {"original-title" => task.owner.full_name}, :rel => "tooltip", :class => 'rounded')
+      
+      .span3
+        %p
+          = link_to task.title, task
+          %br
+          - task_prize = task.task_prizes.includes(:prize_type).first
+          = render 'tasks/task_prize', :task_prize => task_prize
+
+  = link_to "Все задачи", tasks_path(is_free: :f), :class => "btn btn-small btn-warning pull-right"

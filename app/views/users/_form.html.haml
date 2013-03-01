@@ -1,0 +1,113 @@
+= simple_form_for @user do |f|
+  .span12
+    - if @user.errors.any?
+      #error_explanation.well.alert-error
+        %h3
+          = t('errors.messages.not_saved', :count => resource.errors.count)
+        %ul
+          - @user.errors.each do |attr, err|
+            %li Поле '#{t(attr)}' #{err}
+  .form
+    .span8
+      .form-inline
+        .controls.controls-row
+          .span
+            = f.input :first_name, :placeholder => "Введите имя", :required => true, :input_html => {:class => 'span4'} 
+          .span
+            = f.input :last_name, :placeholder => "Введите фамилию", :required => true, :input_html => {:class => 'span4'}
+
+        .control-group
+          .controls
+            = f.input :city, :label => 'Город', :placeholder => 'Укажите город'
+          %label.control-label{ :for => 'user_about' } Расскажите о себе
+          .controls
+            = f.input :about , :input_html => {:class => 'span8',:rows => "3"}, :label => false
+
+        .control-group
+          .controls                  
+            %label.control-label{ :for => 'user_tag_list'}
+              Профессиональные интересы и навыки
+            = f.input :tag_list, :label => false, :placeholder => 'Введите теги через запятую', :input_html => {:class => 'span8', :rows => 3}
+        .control-group
+          .controls.controls-row
+
+            %label.control-label{ :for => 'user_website'}
+              Сайт
+              = f.input :website, :input_html => {:class => 'span4'}, :label => false
+            %label.control-label{ :for => 'user_skype'}
+              Skype
+              = f.input :skype, :input_html => {:class => 'span4'}, :label => false
+            %label.control-label{ :for => 'user_facebook'}
+              Facebook
+              = f.input :facebook, :input_html => {:class => 'span4'}, :label => false
+            %label.control-label{ :for => 'user_twitter'}
+              Twitter
+              = f.input :twitter, :input_html => {:class => 'span4'}, :label => false
+            %label.control-label{ :for => 'user_linkedin'}
+              Linkedin
+              = f.input :linkedin, :input_html => {:class => 'span4'}, :label => false
+        %legend Изменить данные учетной записи
+
+        .controls.controls-row
+          .control-group
+            = f.input :email, :input_html => {:class => 'span4'}, :required => true#, :label => false
+            %br   
+            %label.control-label{ :for => 'user_password' }
+              Пароль
+              = f.input :password, :label => false, :input_html => { :autocomplete => 'off', :class => 'span4' }
+            %br 
+            %label.control-label{ :for => 'user_password_confirmation' }
+              Подтвердите пароль
+              = f.input :password_confirmation, :input_html => { :autocomplete => 'off',:class => 'span4'}, :label => false
+
+
+      %p.t-right
+        = link_to t('.cancel', default: t("helpers.links.cancel")), user_path, class: 'btn'
+        = f.button :submit, 'Сохранить', :class => 'btn btn-success'
+       
+      .acc-delete.pull-right
+        %p.pull-right
+          %button#acc-delete-link.dash-link{:type => "button"} Удалить аккаунт
+        %br
+        #delete-acc.pull-right{:style => "display:none;"}
+          %p Если вы удалите ваш аккаунт, то его больше не будет.
+          %form
+            %fieldset
+              %label.checkbox
+                %input{:type => "checkbox"}
+                  Я хочу удалить аккаунт
+              %br
+                %button.btn.pull-right{:type => "submit"} Удалить
+
+
+    .span-tasksidebar
+      %p.t-center= image_tag(@user.avatar_url ? @user.avatar : 'default_avatar.png', :class => "rounded", :id => "change_img")    
+      %p.t-center
+        %small
+          %i.icon-pencil
+          %a.change-avatar{:href => "#"} Изменить аватар
+          %abbr{:title => 'Обязательное поле'} *
+          = f.file_field :avatar, :class => 'hide', :onchange => "upload_img(this);", :type => "file"
+          = f.file_field :avatar_cache, :class => 'hide'
+
+        
+- content_for :javascript do
+  :javascript
+    $('.change-avatar').on('click', function(){
+      $('#user_avatar').click();
+      return false;
+    });
+    $('#acc-delete-link').click(function() {
+        $('#delete-acc').toggle();
+    });
+
+    function upload_img(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#change_img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }

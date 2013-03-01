@@ -1,0 +1,21 @@
+- @recent_tasks.each_with_index do |task, i|
+  .span4{:class => i == 0 ? '' : 'offset1'}
+    %p 
+      = image_tag(task.organization.logo_url(:thumb))
+      = link_to task.organization.name, task.organization
+    .task-thumb
+      = image_tag(task.image_url)
+    .taskbox
+      %p        
+        = link_to task.title, task
+
+    %p.blockbox
+      - task_prize = task.task_prizes.includes(:prize_type).first
+      = render 'tasks/task_prize', :task_prize => task_prize
+    %p.blockbox
+      - if task.deadline
+        %i.icon-calendar
+        =l task.deadline, format: t('date.formats.short')
+    = link_to apply_task_path(task), :id => "task-#{task.id}",    |
+              :class => "btn btn-block pull-right btn-warning" do |
+      я хочу помочь

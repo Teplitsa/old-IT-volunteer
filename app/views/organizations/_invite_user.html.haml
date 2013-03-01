@@ -1,0 +1,7 @@
+%h3 
+  Пригласить пользователей:
+  .task-sidebar-block-item
+    = simple_form_for @organization, :url => invite_user_organization_path(@organization) do |f|
+      = f.input :user_email, :label => 'Адрес эл. почты'
+      = f.input :role, :collection => Organization::ROLES.map{|r|[t("role.#{r}"), r]}, :label => 'Роль', :include_blank => false
+      = f.button :submit, 'Пригласить'

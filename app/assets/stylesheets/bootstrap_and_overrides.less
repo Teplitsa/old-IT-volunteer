@@ -1,0 +1,348 @@
+@import "twitter/bootstrap/bootstrap";
+// @import "custom-navbar";
+//@import "twitter/bootstrap/responsive";
+
+body{
+  padding-top: 60px;
+}
+
+// Set the correct sprite paths
+@iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white.png");
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
+//       have the proper paths. So for now we use the absolute path.
+@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
+@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
+
+@fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot#iefix");
+
+// Font Awesome
+@import "fontawesome";
+
+@baseFontSize: 13px; 
+@fontSizeMini: 11px;
+@headingsFontWeight: normal; 
+
+
+h1 {
+    font-size: 25px;
+    line-height: 25px;   
+}
+.head {
+    color: #F37A0B;
+    h1 {
+      margin: 15px 0 0 10px;
+    }
+    hr {
+      border-top: 1px dashed;
+      margin-top: 10px;
+    }
+}
+
+.whom {
+    color: #666;
+    font-size: 19px;
+    h1 {
+      margin-left: 16px;
+      font-size: 20px;
+      line-height: 20px;       
+    }
+    hr {
+      border-top: 1px dashed;
+      margin: 0px 0 10px 10px;      
+    }
+    h2 > a {
+      color: #F37A0B;
+      font-size: 19px;
+    }    
+}
+
+h2 {
+    font-size: 20px;
+    line-height: 20px;
+}
+h3 {
+    font-size: 18px;
+    line-height: 20px;
+}
+
+h4 {
+    font-size: 18px;
+    line-height: 20px;
+}
+
+textarea {
+  resize:vertical;
+}
+
+*:focus{outline:none}
+a,
+button,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+select,
+select::-moz-focus-inner
+input::-moz-focus-inner,
+.uneditable-input {
+  &:active,
+  &:focus {    
+    -moz-outline-style: none;
+    outline: 0;
+    outline: none; 
+  }
+}
+
+.pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover {
+color: #999;
+background-color: white;
+cursor: default;
+}
+
+.pagination {text-align: center;}
+
+.modal > form {margin: 0;}
+.registration {
+  width: 700px !important;
+  .modal-body {
+    max-height: 600px;
+  }
+}
+.modal.fade.in { top: 35%;}
+
+// Glyphicons
+//@import "twitter/bootstrap/sprites.less";
+
+// Your custom LESS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
+//
+// Example:
+// @linkColor: #ff0000;
+
+.page-bg {
+  background: transparent url('wood.jpg') top center no-repeat fixed;
+}
+
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+width: 960px;
+}
+
+.m-bottom20 { margin-bottom: 20px;}
+.m-top8 { margin-top: 8px !important;}
+
+.bg-with-arrow, .bg-without-arrow {
+   height: 110px;
+   color: @blue;
+   padding-bottom: 8px;
+   margin-bottom: 18px;   
+    p {
+      font-size: 12px;
+      line-height: 18px;
+      color: #666;
+    }       
+}
+.bg-with-arrow {
+   background: url('arrow.png') center right no-repeat;
+   margin-left: 55px;  
+    p {
+      padding-right: 35px;
+    }    
+}
+
+.taskbox {
+  height: 50px;
+  margin-top: 20px;
+  .span1 {
+    width: 40px;
+    margin-left: 10px;  
+  }
+    p {
+      height: 40px;
+      overflow: hidden;
+  }
+}
+
+.blockbox {
+  min-height: 21px;
+}
+
+.clear { clear: both;}
+
+  .applicant-list {
+      /*float: left;*/
+      vertical-align: middle;
+      width: 230px;
+  }
+
+.role-item, .task-item { background: rgba(250,185,93,0.1); }    
+
+.span3 { width: 210px; }
+.span4 { width: 266px; }
+.span5 { width: 300px; }
+.span8 { width: 640px; }
+.span10 { width: 800px; }
+.span12 { width: 900px; }
+
+.offset1 { 
+  margin-left: 40px;
+  }
+
+
+.applicant-rate {
+  margin: 0 5px 0 40px;
+  width: 130px;
+} 
+
+.article-content-block {margin-bottom: 20px;}
+.search-query { width: 225px; } 
+.west { margin-left: 7px; }
+.clear {clear:left;}
+
+.feedback-form {
+  textarea {
+    width:500px;
+  }
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.editable-input { 
+  vertical-align: top; 
+  display: inline-block; /* should be inline to take effect of parent's white-space: nowrap */
+  width: auto; /* bootstrap-responsive has width: 100% that breakes layout */
+  white-space: normal; /* reset white-space decalred in parent*/
+ /* display-inline emulation for IE7*/
+ zoom: 1; 
+ *display: inline; 
+  width: 150px;
+  float: left;
+   input {
+     width: 130px;
+   }
+  }
+  .editable-container { width: 260px;}
+
+.editable-click, 
+a.editable-click, 
+a.editable-click:hover {
+    text-decoration: none;
+    border-bottom: dashed 1px #0088cc;
+}
+
+.editable-buttons > button { margin-right: 3px; }
+
+.dialog-item, .dialog-item-first {
+    margin: 10px 0 10px 20px;
+    width: 620px;
+    hr {
+      border-top: 1px dashed;
+      margin: 25px 0 80px 0;
+      color: #888;
+    }
+}
+
+.dialog-item-first {
+    margin: 10px 0 10px 0px !important;
+    hr {
+      margin: 20px 0 !important;
+    }
+}
+
+.dialog-body {
+  a {
+   text-decoration: none;
+  }
+}
+
+.task-thumb {
+  overflow:hidden; 
+  width:256px;
+  height:200px; 
+  display: table-cell;
+  text-align : center;
+  vertical-align: middle;
+  img {
+    width:256px;
+    margin: -150px;
+  }
+}
+
+ul.user-list li:first-child { margin-bottom: 15px; }
+
+.acc-delete { 
+  margin-right: -270px;
+  #delete-acc {
+    width: 250px;
+  }
+}
+
+.charsLeft {
+  color: #999;
+}
+
+.breadcrumb {
+  overflow: hidden;
+  padding: 8px 15px 8px 0;
+  background-color: rgb( 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.1);
+  .box-shadow(inset 0px 1px 2px rgba(0, 0, 0, 0.3));
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=15);
+  text-shadow: none;  
+  color: #EBDCCE;
+  a {
+    text-shadow: none;
+    color: #EBDCCE;
+    }
+  form {
+    margin: 0;
+  }
+  .breadcrumb-list {
+    padding: 5px 0;
+  }
+  .filter-text {
+    display: inline-block;
+    padding: 5px 0;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .page-bg {
+    background: transparent url('wood-big.jpg') top center no-repeat fixed;
+  }
+}
+
+@media screen and (max-height: 745px) {
+  .modal.fade.in { top: 40%;}
+}
+
+@media screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 1),
+ only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-device-pixel-ratio: 1) {
+ 
+  .page-bg {
+    background: transparent url('wood-big.jpg') repeat fixed;
+  }
+  
+}

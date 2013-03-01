@@ -1,0 +1,32 @@
+%ul#tabs-task.nav.nav-pills
+  %li.active
+    %a{"data-toggle" => "pill", :href => "#opened"} открытые
+  %li
+    %a{"data-toggle" => "pill", :href => "#in_progress"} в работе
+  %li    
+    %a{"data-toggle" => "pill", :href => "#closed"} закрытые
+  %li    
+    %a{"data-toggle" => "pill", :href => "#unpublished"} неопубликованные
+.tab-content
+  = empty_tasks_table(@tasks)
+  - @tasks.each_pair do |state, tasks|
+    - if tasks.any?
+      .tab-pane{:id => task_state_name(state), :class => state == 1 ? 'active' : ''}
+        %table.table.table-striped
+          %thead
+            %tr
+              %th #
+              %th Задача
+              %th Дедлайн
+          %tbody
+            - tasks.each do |t|
+              %tr
+                %td
+                  = link_to t.id, t, :title => "Перейти к просмотру задачи"
+                %td= t.title
+                %td= t.deadline.to_s(:short) if t.deadline
+                -if t.unpublished?
+                  %td
+                    = link_to 'Опубликовать', change_state_task_path(t, 'publish'), :method => :put
+  %p.t-center
+    = link_to 'Посмотреть все задачи', method("#{resource_class.to_s.downcase}_tasks_path").call(resource), :class => 'btn btn-mini btn-block'

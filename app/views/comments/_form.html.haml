@@ -1,0 +1,13 @@
+- comment ||= resource.comments.build
+
+= simple_form_for [resource, comment], method: :post, html: { class: 'form-horizontal' } do |f|
+  = render_errors comment
+
+  .control-group
+    = f.text_area :body, col: 30, rows: 3, placeholder: 'оставьте свой комментарий …', class: "add-comment-textarea span8"
+
+  .control-group.pull-left
+    = f.select :organization_id, user_organizations_options
+
+  .control-group.t-right
+    = f.button :submit, 'Отправить', class: 'btn'

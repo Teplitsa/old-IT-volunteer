@@ -1,0 +1,8 @@
+- if task_prize.present?
+  - if task_prize.prize_type
+    %i.icon-gift
+    = task_prize.prize_type.name
+    - if !task_prize.prize_type.segregate and task_prize.count
+      (
+      = task_prize.count
+      )

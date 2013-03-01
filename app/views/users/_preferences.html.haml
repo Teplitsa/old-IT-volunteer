@@ -1,0 +1,29 @@
+.well
+  .row
+    .span8
+      %h3 Предпочтения:
+      %p Выберите типы задач и наград, которые вам интересны
+    .span4
+      %h4 Награды
+      %ul.prize_types.unstyled
+        - PrizeType.all.each do |prize_type|
+          %li
+            %label
+              = check_box_tag "prize_type_#{prize_type.id}", nil, current_user.prefered?(prize_type),   |
+                                                                  class: 'prize_type_preference',       |
+                                           'data-unprefer-url' => prize_type_unprefer_path(prize_type), |
+                                               'data-prefer-url' => prize_type_prefer_path(prize_type)  |
+
+              = prize_type.name
+    .span4
+      %h4 Задачи
+      %ul.task_types.unstyled
+        - TaskType.all.each do |task_type|
+          %li
+            %label          
+              = check_box_tag "task_type_#{task_type.id}", nil, current_user.prefered?(task_type), |
+                                                                class: 'task_type_preference',     |
+                                        'data-unprefer-url' => task_type_unprefer_path(task_type), |
+                                          'data-prefer-url' => task_type_prefer_path(task_type)    |
+
+              = task_type.name

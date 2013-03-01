@@ -1,0 +1,141 @@
+// Transparent navbar
+// -------------------------
+
+@white: white;
+
+
+.devider-navbar {
+  // border-bottom: 1px solid #fff; 
+  // opacity: 0.2; 
+  margin-bottom: 40px; 
+}
+
+
+.top-panel > li > a { display: inline-block;}
+.navbar .top-panel > li {
+  font-size: 13px;
+  color: @white;
+  padding: 0px 10px 0px;
+  &:first-child {
+    padding-left: 0;
+  }
+}
+.navbar .top-panel > li > a {
+  padding: 10px 0px 10px;
+  color: @white;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.navbar-transparent {
+  color: @white;
+
+  .navbar-inner {
+    background: transparent;
+    border-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    filter: none;
+  }
+
+  .brand {
+    width: 171px;
+    height: 32px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    background: transparent url('logo.png') no-repeat center center;  
+  }
+  .nav > li {
+    padding: 0px 10px 0px;  
+  }
+  .nav > li > a {
+    font-size: 16px;
+    padding: 18px 0px 4px;
+    color: @white;
+    border-bottom: 2px solid transparent;
+    text-transform: uppercase;      
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    &:hover {
+      color: @white;
+      text-decoration: none;
+      border-bottom: 2px solid #8b4513;
+    }
+  }
+
+  // .nav > li > a:focus,
+  // .nav > li > a:hover {
+  //   background-color: @navbarInverseLinkBackgroundHover;
+  //   color: @navbarInverseLinkColorHover;
+  // }
+
+  // .nav .active > a,
+  // .nav .active > a:hover,
+  // .nav .active > a:focus {
+  //   color: @navbarInverseLinkColorActive;
+  //   background-color: @navbarInverseLinkBackgroundActive;
+  // }
+
+  // // Inline text links
+  // .navbar-link {
+  //   color: @navbarInverseLinkColor;
+  //   &:hover {
+  //     color: @navbarInverseLinkColorHover;
+  //   }
+  // }
+
+  // // Dividers in navbar
+  // .divider-vertical {
+  //   border-left-color: @navbarInverseBackground;
+  //   border-right-color: @navbarInverseBackgroundHighlight;
+  // }
+
+  // // Dropdowns
+  // .nav li.dropdown.open > .dropdown-toggle,
+  // .nav li.dropdown.active > .dropdown-toggle,
+  // .nav li.dropdown.open.active > .dropdown-toggle {
+  //   background-color: @navbarInverseLinkBackgroundActive;
+  //   color: @navbarInverseLinkColorActive;
+  // }
+  // .nav li.dropdown > .dropdown-toggle .caret {
+  //   border-top-color: @navbarInverseLinkColor;
+  //   border-bottom-color: @navbarInverseLinkColor;
+  // }
+  // .nav li.dropdown.open > .dropdown-toggle .caret,
+  // .nav li.dropdown.active > .dropdown-toggle .caret,
+  // .nav li.dropdown.open.active > .dropdown-toggle .caret {
+  //   border-top-color: @navbarInverseLinkColorActive;
+  //   border-bottom-color: @navbarInverseLinkColorActive;
+  // }0
+
+  // // Navbar search
+  // .navbar-search {
+  //   .search-query {
+  //     color: @white;
+  //     background-color: @navbarInverseSearchBackground;
+  //     border-color: @navbarInverseSearchBorder;
+  //     .box-shadow(~"inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0 rgba(255,255,255,.15)");
+  //     .transition(none);
+  //     .placeholder(@navbarInverseSearchPlaceholderColor);
+
+  //     // Focus states (we use .focused since IE7-8 and down doesn't support :focus)
+  //     &:focus,
+  //     &.focused {
+  //       padding: 5px 15px;
+  //       color: @grayDark;
+  //       text-shadow: 0 1px 0 @white;
+  //       background-color: @navbarInverseSearchBackgroundFocus;
+  //       border: 0;
+  //       .box-shadow(0 0 3px rgba(0,0,0,.15));
+  //       outline: 0;
+  //     }
+  //   }
+  // }
+
+  // // Navbar collapse button
+  // .btn-navbar {
+  //   .buttonBackground(darken(@navbarInverseBackgroundHighlight, 5%), darken(@navbarInverseBackground, 5%));
+  // }
+
+}

@@ -1,0 +1,92 @@
+ru:
+  role:
+    applicant: 'Кандидат'
+    applicants: 'Кандидаты'
+    as_applicant: 'Кандидата'
+    of_applicants: 'Кандидатов'
+    volunteer: 'Волонтер'
+    volunteers: 'Волонтеры'
+    as_volunteer: 'Волонтера'
+    of_volunteers: 'Волонтеров'
+    representative: 'Представитель'
+    representatives: 'Представители'
+    as_representative: 'Представителя'
+    of_representatives: 'Представителей'
+    member: 'Участник'
+    members: 'Участники'
+    as_member: 'Участника'
+    of_members: 'Участников'
+  task:
+    state:
+      opened: 'Открыта'
+      in_progress: 'В работе'
+      closed: 'Закрыта'
+      published: 'Опубликован'
+      pending: 'Не опубликован'
+  org:
+    created: 'Организация успешно создана и будет доступна после подтверждения администрацией.'
+    user_added: "%{user} добавлен в организацию в роли %{role}."
+    wrong_user: "Введите правильный адрес эл. почты и роль."
+  none:
+    access: 'У Вас нет доступа.'
+    task:
+      state:
+        opened: 'Нет открытых задач.'
+        in_progress: 'Нет задач в работе.'
+        closed: 'Нет закрытых задач.'
+        unpublished: 'Нет неопубликованных задач.'
+    user:
+      with_email: "Пользователь с адресом %{email} не найден."
+      organization: "У Вас нет организации. Вам нужно создать хотябы одну, или присоединиться к любой из существующих."
+
+  user:
+    removed: "Пользователь %{user} удален из списка %{role}."
+    assigned: "Пользователь %{user} успешно включен в список."
+    already_assigned: "Пользователь %{user} уже включен в список."
+    already_aplied: "Вы уже подали заявку на участие."
+  helpers:
+    links:
+      cancel: "Отмена"
+
+  email: 'Почта'
+  first_name: 'Имя'
+  last_name: 'Фамилия'
+
+  activerecord:
+    attributes:
+      user:
+        first_name: 'Имя'
+        last_name: 'Фамилия'
+        email: 'Почта'
+        password: 'Пароль'
+        about: 'Информация'
+        # для формы регистрации
+      organizations: 
+        website: 'Сайт'
+        address: 'Адрес'
+        name: 'Название'
+        # для валидации создания новой организации
+      organization:
+        address: 'Адрес'
+        name: 'Название'
+      task:
+        title: 'Описание'
+        problem: 'Дополнительная информация'
+        deadline: 'Крайний срок'
+        organization: 'Организация'
+  errors:
+    messages:
+      invalid_date: "не является допустимой датой"
+      invalid_time: "не является допустимым временем"
+      # invalid_datetime: "is not a valid datetime"
+      after: "должен быть после %{restriction}"
+      extension_list: "Расширение файла не соответствует допустимому: %{extensions}"
+  validates_timeliness:
+    error_value_formats:
+      date: '%Y-%m-%d'
+      time: '%H:%M:%S'
+      datetime: '%Y-%m-%d %H:%M:%S'
+  date:
+    formats:
+      short: "%d %b %Y"
+      long: "%d %B %Y"

@@ -1,0 +1,7 @@
+%ul.user-list
+%li.user-list-item
+  .list-item-img= image_tag(user.avatar_url(:thumb), :class => 'rounded') if user.avatar
+  .list-item-user
+  %span.user-name= user.full_name
+  %span.user-control
+  %a{:href => "#"} Написать личное сообщение

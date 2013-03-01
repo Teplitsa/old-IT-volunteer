@@ -1,0 +1,18 @@
+// $('#content').html('<%= escape_javascript render(@tasks) %>');
+// $('.pagination').html('<%= escape_javascript(paginate(@tasks, remote: true).to_s) %>');
+
+$('#content').append("<%= escape_javascript(render partial: @tasks)%>");
+
+<%- if not @tasks.last_page? %>
+
+  <%- p = {remote: true, id: 'load_more_link', 
+                      class: 'btn btn-block', 
+         'data-loading-text' => 'Loading...', 
+                       type: 'button'} %>
+
+  <%- html = escape_javascript(link_to_next_page(@tasks, 'Загрузить больше задач', p)) %>
+
+  $('#load_more_link').replaceWith("<%= html %>");
+<% else %>
+  $('#load_more_link').remove()
+<% end %>

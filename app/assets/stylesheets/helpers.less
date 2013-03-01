@@ -1,0 +1,78 @@
+a, a:hover {
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+/*------------------------------------------------
+Для конструкции типа:
+%a
+  %img
+  text
+
+Чтобы не было подчеркнивания между изображением и текстом
+--------------------------------------------------*/
+
+.link_with_img {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+    .link_without_img {
+      text-decoration: underline;
+    }
+  }
+
+  .link_without_img {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.rounded {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+
+
+.link__no-decorate:link,
+.link__no-decorate:hover {
+  text-decoration: none;
+  border: none;
+}
+
+
+
+.t-right {text-align: right;}
+.t-center {text-align: center;}
+.t-left {text-align: left;}
+
+
+input[type="checkbox"].mfix-checkbox {
+  margin-bottom: 4px;
+}
+
+
+.dash-link {
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    color: #006dcc;
+    border-bottom: 1px dashed #006dcc;
+    &:hover {
+      color: #0077b3;
+      border-color: #0077b3;
+      text-decoration: none;
+    }
+}
+
+
+
+/*
+------------------------------------------------------*/
+.centered {margin: 0 auto; float: none;}

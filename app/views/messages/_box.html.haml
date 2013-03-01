@@ -1,0 +1,19 @@
+- @message ||= Message.new(receiver_id: 1, dialog_id: 2)
+
+#new_message.modal.hide.fade(tabindex="-1" role="dialog" aria-labelledby="message_box_label" aria-hidden="true")
+  = simple_form_for @message, remote: :true do |f|
+    .modal-header
+      = button_tag type: :button, class: :close, 'data-dismiss' => :modal, 'aria-hidden' => true do
+        &times;
+      %h3#message_box_label Новое сообщение
+
+    .modal-body
+      = f.hidden_field :receiver_id
+      .span6.errors= render_errors(@message)
+      .span6
+        .control-group
+          .controls= f.text_area :body, col: 40, rows: 7, class: "span6"
+
+    .modal-footer
+      = link_to 'Отмена', new_message_path, class: 'btn', 'data-dismiss' => :modal, 'aria-hidden' => true
+      = submit_tag 'Отправить',   class: 'btn btn-success'

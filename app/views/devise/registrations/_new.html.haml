@@ -1,0 +1,99 @@
+- resource ||= User.new
+- resource_name = :user
+- resource_class = resource.class
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $('.change-avatar').on('click', function(){
+        $('#user_avatar').click();
+        return false;
+      });
+
+      $('#acc-delete-link').click(function() {
+        $('#delete-acc').toggle();
+      });
+
+      window.upload_img = function (input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#change_img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      if ($('#user_org_presenter').is(':checked')){
+        $('#new_user fieldset').show()
+      } else {
+        $('#new_user fieldset').hide()
+      }
+
+      $('#user_org_presenter').change(function(){
+        $('#new_user fieldset').toggle()
+      })
+    })
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} &times;
+    %h3
+      Зарегистрироваться
+      %span{style: "font-size:12px; color: #bbbbbb"}
+        Уже есть аккаунт?
+        %a{"aria-hidden" => "true", "data-dismiss" => "modal", "data-toggle" => "modal", href: "#signin", role: "button"} Войдите
+  .modal-body
+    .form-horizontal
+      .row
+        .span6
+          .control-group
+            = f.label "Имя", class: 'control-label', for: "user_first_name"
+            .controls
+              = f.text_field :first_name, required: true, tabindex: "1"
+
+          .control-group
+            = f.label "Фамилия", class: 'control-label', for: "user_last_name"
+            .controls
+              = f.text_field :last_name, required: true, tabindex: "2"
+
+          .control-group
+            = f.label "Почта", class: 'control-label', for: "user_email"
+            .controls
+              = f.text_field :email, placeholder: "email@site.ru", required: true, autofocus: true, tabindex: "3"
+
+          .control-group
+            = f.label "Пароль", class: 'control-label', for: "user_password"
+            .controls
+              = f.text_field :password, required: true, type: "password", tabindex: "4"
+          .control-group
+            = f.label "Подтвердите пароль", class: 'control-label', for: "user_password_confirmation"
+            .controls
+              = f.text_field :password_confirmation, required: true, type: "password", tabindex: "5"
+          .control-group
+            = f.label "Я согласен предоставить свои данные для обработки", class: 'control-label', for: 'user_accept_terms'
+            .controls
+              = f.check_box :accept_terms, checked: true, :tabindex => "6"
+
+          .control-group
+            = f.label "Я хочу получать рассылку IT-волонтёр", class: 'control-label', for: 'user_subscribe'
+            .controls
+              = f.check_box :subscribe, checked: true, :tabindex => "7"
+
+          = render partial: 'organizations/registration', locals: {f: f}
+
+        .span2
+          = image_tag(resource.avatar_url, class: "rounded", id: "change_img")
+          %i.icon-pencil
+          %a.change-avatar{href: "#"} Добавить аватар
+          = f.file_field :avatar, class: 'hide', onchange: "upload_img(this);", type: "file"
+          = f.file_field :avatar_cache, class: 'hide'
+
+  .modal-footer
+    %a.btn{href: "#","data-dismiss" => "modal"} Отмена
+    = f.button :submit, "Зарегистрироваться", class: "btn btn-success", tabindex: "11"
+    = render "devise/shared/links", resource: resource, resource_name: resource_name, resource_class: resource.class
+
+
+

@@ -1,0 +1,11 @@
+development:
+  # min_infix_len: 1
+  min_prefix_len: 4
+  # morphology: stem_ru
+
+production:
+  # min_infix_len: 1
+  min_prefix_len: 4
+  # morphology: stem_ru
+  pid_file: /server/www/volunteer/main/deploy/shared/pids/searchd.pid
+  searchd_file_path: /server/www/volunteer/main/deploy/shared/db/sphinx

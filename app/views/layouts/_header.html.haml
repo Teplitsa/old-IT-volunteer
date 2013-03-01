@@ -1,0 +1,55 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top
+  .navbar-inner
+    .container
+      %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      .container.nav-collapse
+        %ul.nav.top-panel
+          - if user_signed_in?
+            %li
+              Привет, 
+              %i.icon-user
+              = link_to current_user.first_name, user_path(current_user), :title => "Перейти в профиль"
+            %li
+              %i.icon-envelope-alt
+              = link_to "Сообщения", dialogs_path
+            %li
+              %i.icon-comments
+              = link_to "Комментарии", user_comments_path(current_user)
+            %li
+              %i.icon-refresh
+              = link_to "Участники", users_path
+            %li
+              %i.icon-tasks
+              = link_to "Задачи", tasks_path
+            -# %li= link_to "Tasks", tasks_path
+            %li
+              %i.icon-briefcase
+              = link_to "Организации", organizations_path
+        %ul.nav.pull-right
+          - if user_signed_in?
+            = link_to new_task_path, class: 'btn btn-success btn-mini pull-left m-top8' do
+              %i.icon-plus-sign
+              Новая задача
+            %li.divider-vertical
+            %li= link_to 'Выйти', destroy_user_session_path, :tabindex => "-1", :class => ""
+          - else
+            %li= link_to 'Зарегистрироваться', "#signup", :data => {:toggle => 'modal'}, :role => "button"
+
+            %li.divider-vertical
+            %li.dropdown
+              = link_to 'Войти', "#signin", :data => {:toggle => 'modal'}, :role => "button"
+%nav.navbar.navbar-transparent.navbar-static-top.devider-navbar
+  .navbar-inner
+    .container
+      = link_to root_path, :class => 'brand' do
+        %span.hide Volunteer
+
+      .container.nav-collapse
+        - if _routes_context.class != HomeController
+          %ul.nav.pull-right
+            %li= link_to "Волонтерам", page_path('it-volonteram')
+            %li= link_to "Организациям", page_path('nko-i-obschestvennym-initsiativam')
+            %li= link_to "Рейтинг", users_path

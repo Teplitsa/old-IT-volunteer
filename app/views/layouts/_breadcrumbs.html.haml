@@ -1,0 +1,4 @@
+= content_for(:breadcrumbs) do
+  .breadcrumb 
+    .span= render_navigation :renderer => :breadcrumbs,  :join_with => " / "
+    .span8.pull-right= yield :filters

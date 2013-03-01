@@ -1,0 +1,120 @@
+= render 'layouts/add_and_search_panel'
+= render 'layouts/breadcrumbs'
+
+%article.task_well
+  .row
+    .span8
+      - if @task.unpublished?
+        .alert.fade.in.alert-warning
+          Это не опубликованная задача. Она не будет доступна публично.
+          - if can? :publish, @task
+            = link_to 'Опубликовать', change_state_task_path(@task, 'publish'), :method => :put
+
+      %h2
+        %i.icon-link.pull-left
+        .task-head-link= @task.title
+
+      .task-tags
+        %span.label.label-info.task-status= t("task.state.#{@task.state_name}")
+        %span.label.label-info.task-type= @task.task_type.name
+
+      .task-description
+        -if @task.image.present?
+          .task-image.thumbnail
+            = image_tag @task.image.thumb.url, class: 'rounded'
+
+        = @task.problem
+
+        - if @task.file.present?
+          %p.task-attach
+            %i.icon-download-alt
+            = link_to 'Download file', @task.file.url
+
+      .task-meta
+        - if not @task.unpublished?
+          Опубликовал&nbsp;
+          =link_to @task.owner, class: "link_with_img" do
+            = image_tag @task.owner.avatar.url(:thumb),                    |
+                        data: {"original-title" => @task.owner.full_name}, |
+                        rel: "tooltip", class: 'rounded'                   |
+
+            %span.link_without_img= @task.owner.full_name
+
+          -if @task.organization
+            по инициативе&nbsp;
+            = link_to @task.organization, class: "link_with_img" do
+              = image_tag @task.organization.logo.url(:thumb),                 |
+                          data: {"original-title" => @task.organization.name}, |
+                          rel: "tooltip", class: 'rounded'                     |
+
+              %span.link_without_img= @task.organization.name
+
+      - if can? :apply, @task 
+        .task-controls= task_apply_button(@task)
+        / WTF?
+        / = @task.owner_id
+        / = current_user.id
+        / = @task.class.name
+        / = can? :apply, @task
+
+      = render partial: 'tasks/events'
+
+    .span-tasksidebar
+      - if can? :update, @task
+        .task-sidebar-block-item
+          = link_to 'Редактировать', edit_task_path(@task), |
+                    :class => 'btn btn-mini btn-block'      |
+
+          = link_to 'Удалить', change_state_task_path(@task, :delete_task), :method => :put, :confirm => 'Вы уверены'
+
+      .task-sidebar-block-item
+        %span.status-text Статус задачи
+        .btn-group{"data-toggle" => "buttons-radio"}
+          = can?(:change_state, @task) ? state_switcher : task_state
+
+      - if @task.deadline
+        .task-sidebar-block-item
+          %i.icon-calendar
+          = l @task.deadline, format: t('date.formats.short')
+
+      .task-sidebar-block-item
+        %ul
+          - @task.task_prizes.includes(:prize_type).each do |task_prize|
+            %li= render 'task_prize', :task_prize => task_prize
+
+      .task-sidebar-block-item
+        %i.icon-comment
+        Обсуждение (#{@task.comments.count})
+        =link_to 'Прокомментировать', task_path(@task)+"#new_comment", :id => 'leave-comment' if (can? :create, Comment) && (can? :comment, @task)
+      .task-sidebar-block-item
+        %i.icon-heart
+        Поделиться
+        = render 'shared/add_this', :task => @task
+          
+      .task-sidebar-block-item
+        - @users.each do |role, users|
+
+          %p.role= t("role.#{role.pluralize}")
+
+          %ul.user-list
+            - users.each do |user|
+              %li.user-list-item
+                .list-item-img= image_tag(user.avatar_url(:thumb), class: 'rounded')
+                
+                .applicant-list
+                  .user-name= user.full_name
+                  %span.user-control= link_to 'Написать личное сообщение', '#'
+                
+                .applicant-rate.pull-left
+                  - if role == 'applicant' and can? :assign, @task
+                    = link_to 'Принять заявку', assign_user_task_path(user_id: user.id), |
+                                             class: "btn btn-primary btn-mini btn-block" |
+                
+                .applicant-kick
+                  = feedback(user) if role == 'volunteer'
+
+                  - if can? "kick_#{role}".to_sym, @task
+                    = link_to 'x', kick_role_task_path(role, user),  |
+                                   method: :delete,                  |
+                                   class: "btn btn-danger btn-mini", |
+                                   confirm: 'Вы уверены?'            |

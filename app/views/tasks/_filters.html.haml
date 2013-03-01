@@ -1,0 +1,9 @@
+= form_tag tasks_path, method: :get, class: 'form-search pull-right' do
+  %label.filter-text Сортировать:
+  
+  = select_prize_types(params[:prizes])
+  = select_task_types(params[:types])
+  = select_task_state(params[:state])
+
+  %button{:name => nil, :type => 'submit', :class => 'btn btn-mini', :title => 'Применить фильтр'}
+    %i.icon-refresh

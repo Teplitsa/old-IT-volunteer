@@ -1,0 +1,8 @@
+.events
+  %h4 История задачи:
+
+  - if @events.any?
+    %ul.comment-list= render @events
+
+  - if (can? :create, Comment) && (can? :comment, @task)
+    .add-comment= render partial: 'comments/form'

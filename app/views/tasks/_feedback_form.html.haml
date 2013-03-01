@@ -1,0 +1,17 @@
+.applicant-rate.pull-left
+  = link_to 'оценить', "#rate-applicant-#{user.id}",:class => "btn btn-success btn-mini btn-block",:data => {:toggle => 'modal'}, :role => "button"
+  .modal.hide.fade{:id => "rate-applicant-#{user.id}"}
+    - @task.feedbacks.build
+    = simple_form_for @task, :url => feedback_task_path(@task) do |f|
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+        %h3
+          Оставьте ваш отзыв о пользователе
+          %span{:style => "font-size:12px; color: #bbbbbb"}
+            
+      .modal-body.feedback-form
+        .control-group
+          = f.hidden_field :user_id, :value => user.id
+          = f.text_area :body, col: 80, rows: 7
+      .modal-footer
+        = f.button :submit, 'Отправить'

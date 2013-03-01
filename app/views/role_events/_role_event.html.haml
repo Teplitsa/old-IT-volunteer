@@ -1,0 +1,10 @@
+-# render only applicants, do we need other events?
+- if role_event.message == 'applicant'
+  %li.role-item
+    .event-info
+      .event-info-avatar
+        = image_tag(role_event.user.avatar_url(:thumb))
+      .event-info-message
+        = roleEventMessage(role_event)
+        %small
+          %time= role_event.created_at.strftime("%d %b %Y %H:%M")

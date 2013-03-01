@@ -1,0 +1,39 @@
+select.filter-select {z-index: 1;}
+
+.filter-select {
+  width: 154px;
+  white-space: nowrap;
+  border-bottom: 1px dashed #EBDCCE;
+  overflow: hidden;
+  margin: 0 5px;
+  position: relative;
+  cursor: pointer;
+  &:after {
+    content: "▼";
+    position: absolute;
+    top: 0;
+    right: -11px;
+    bottom: 0;
+    font-size: 60%;
+    line-height: 20px;
+    padding: 0 10px;
+    color: #EBDCCE;
+  }
+}
+.filter-selectInner {
+  color: #EBDCCE;
+}
+
+.filter-select {
+/* Styles For Your Select Box */
+}
+
+.filter-select.changed {
+/* You can use this if you want a different style after user has made a selection */
+}
+
+/* on the next line we add a down arrow on the right to indicate that it is a select box */
+.filter-selectInner {
+  // background:url(canvas-list-nav-item-arrow.gif) no-repeat center right;
+  background: transparent;
+}

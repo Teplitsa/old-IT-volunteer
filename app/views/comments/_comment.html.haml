@@ -1,0 +1,27 @@
+%li.comment-item{"data-id" => "comment-#{comment.id}", "id" => "comment-#{comment.id}"}
+  .comment-info
+    .comment-user-avatar
+      = image_tag(comment.commenter.avatar, class: "rounded", height: '32px', width: '32px', alt: comment.owner.full_name)
+
+    .comment-user-info
+      = link_to comment.commenter.full_name, comment.commenter
+      %small
+        %time= l comment.created_at, format: :short
+
+    .comment-meta-controls
+      = link_to polymorphic_url(resource, anchor: "comment-#{comment.id}"), title: "Ссылка на комментарий", |
+                                                      class: "link__no-decorate" do   |
+        %i.icon-link
+
+      - if can? :destroy, comment
+        = link_to polymorphic_url([resource, comment]), method: :delete, confirm: 'delete?',  |
+                                  class: "link__no-decorate", title: "Удалить комментарий" do
+          %i.icon-trash                                                                      
+
+  .comment-text= comment.body
+  .comment-controls
+    = link_to "Ответить", new_polymorphic_url([resource, comment], parent_id: comment.id), |
+                                                      class: "btn btn-mini", remote: true  |
+
+  %br
+  %ul.sub-comments= render comment.children

@@ -1,0 +1,21 @@
+= render 'layouts/add_and_search_panel'
+= render 'layouts/breadcrumbs'
+
+#content
+  %article.task_well
+    .row
+      .span8
+        %h2 Пользователи
+        - @users.each do |user|
+          .row.article-content-block
+            .span2
+              = image_tag(user.avatar_url)
+            .span6
+              %h2
+                = link_to user.full_name, user, :title => "Перейти в профиль"
+              %p= user.about if user.about
+              %p 
+                Рейтинг пользователя: +#{user.rating}
+
+  .pagination
+    = paginate @users

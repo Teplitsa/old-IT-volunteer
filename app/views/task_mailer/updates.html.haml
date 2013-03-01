@@ -1,0 +1,3 @@
+%p= "Здравствуйте, #{@user.to_s}.".html_safe
+%p= "В Вашей задаче #{link_to(@task.title, @url)} есть обновления:".html_safe
+= render @event.actor_type.downcase

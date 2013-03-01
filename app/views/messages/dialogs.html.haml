@@ -1,0 +1,25 @@
+%article.task_well
+  .row
+    .span8
+      %h1 Ваши диалоги
+
+      %ul.unstyled
+        - @dialogs.each do |dialog|
+          %li.row
+            - collocutor = collocutor(dialog)
+
+            .dialog-item
+              Диалог с  
+              = image_tag(collocutor.avatar.url(:thumb))
+              = link_to collocutor.full_name, collocutor
+              начат
+              = l dialog.created_at, format: :short
+
+              = ignore_or_unignore_link(collocutor)
+        
+              .dialog-body
+                %pre= dialog.body
+              .pull-right= link_to 'Весь диалог', dialog_path(dialog), class: 'btn'
+              %hr                  
+
+    .span-tasksidebar

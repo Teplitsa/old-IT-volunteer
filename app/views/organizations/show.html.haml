@@ -1,0 +1,49 @@
+= content_for(:new_button) do
+  .span2
+    = render 'new_button'
+= render 'layouts/breadcrumbs'
+= render 'layouts/add_and_search_panel'
+%article.task_well
+  .row
+    .span8 
+      .row.article-content-block
+        .span2
+          = image_tag(@organization.logo_url, :class => "rounded")
+        .span6
+          %h2= @organization.name
+          %p= @organization.about
+
+      .row.article-content-block
+        .span8
+          %h3 Контакты и социальные сети:
+        - %w[email website skype twitter facebook linkedin].each_slice(3) do |contacts|
+          - contacts.each do |contact|
+            .span5
+              .row
+                .span1= contact.camelize + ':'
+                .span3
+                  - if can? :update, @organization
+                    = inplace_editable_link_to @organization, contact
+                  - else 
+                    = @organization.send(contact)
+
+      .row.article-content-block
+        .span8
+          %h3 
+            Область деятельности организации:
+          %p
+            = inplace_editable_link_to @organization, :tag_list, {class: ' tags'} do
+              - @organization.tag_list.each do |tag|
+                %span.label.label-info= tag
+
+      .row.article-content-block
+        .span8
+          %h3 Задачи:
+          = render 'tasks/tasks_in_table'
+    .span-tasksidebar
+      - if can? :update, @organization
+        .task-sidebar-block-item
+          = link_to 'Edit', edit_organization_path(@organization), :class => 'btn btn-mini btn-block'
+      = render 'users'
+      - if can? :manage, @organization
+        = render 'invite_user'

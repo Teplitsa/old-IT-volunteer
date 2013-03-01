@@ -1,0 +1,19 @@
+.span12.task_well
+  %h2 Войти в систему
+
+  .row  
+    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal'}) do |f|
+      .span8
+        = f.input :email, :required => false, :placeholder => "Почта", :style => "margin-bottom: 15px;", :id => "email"
+        = f.input :password, :required => false, :placeholder => "Пароль", :style => "margin-bottom: 15px;", :id => "password"
+        .control-group
+          .controls
+            %label.checkbox{:for => "user_remember_me"}
+              = f.check_box :remember_me, :tabindex => "3", :as => :boolean if devise_mapping.rememberable?
+              Запомнить меня
+        / = f.input :remember_me, :style => "float: left; margin-right: 10px;", :as => :boolean if devise_mapping.rememberable?
+        / %label.string.optional{:for => "user_remember_me"} Remember me
+      .span5.offset3
+        = f.button :submit, "Войти", :id => "sign-in", :class => "btn btn-success"
+        или
+        = render "devise/shared/links"

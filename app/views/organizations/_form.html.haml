@@ -1,0 +1,52 @@
+= simple_form_for(@organization) do |f|
+  .span12
+    - if @organization.errors.any?
+      #error_explanation.well.alert-error
+        %h3
+          = t('errors.messages.not_saved', :count => resource.errors.count)
+        %ul
+          - @organization.errors.full_messages.each do |msg|
+            %li= msg  
+  
+  %form
+    .span8
+      = f.input :name,     label: 'Название компании', input_html: {class: 'span6'}
+      = f.input :address,  label: 'Адрес',    input_html: {class: 'span4'}
+      = f.input :website,  label: 'Сайт',     input_html: {class: 'span4'}
+      = f.input :email,    label: 'Email',    input_html: {class: 'span4'}
+      = f.input :skype,    label: 'Skype',    input_html: {class: 'span4'}
+      = f.input :twitter,  label: 'twitter',  input_html: {class: 'span4'}
+      = f.input :facebook, label: 'facebook', input_html: {class: 'span4'}
+      = f.input :linkedin, label: 'linkedin', input_html: {class: 'span4'}
+      = f.input :about,    label: 'Расскажите чем занимается компания', input_html: {class: 'span6', rows: 3}
+      = f.input :tag_list, label: 'Теги', placeholder: 'Введите теги через запятую', input_html: {class: 'span6', rows: 3}
+      .span6.t-right
+        / = link_to t('.cancel', default: t("helpers.links.cancel")), organizations_path, class: 'btn'
+        / = f.file_field :logo,       class: "hide"
+        / = f.file_field :logo_cache, class: "hide"
+
+        = f.button :submit, 'Сохранить', class: 'btn btn-success'
+
+    .span-tasksidebar
+      %p.t-center= image_tag(@organization.logo.url, :class => "rounded", :id => "change_img")    
+      %p.t-center
+        %small
+          %i.icon-pencil
+          %a.change-logo{:href => "#"} Изменить аватар
+          = f.file_field :logo, :class => 'hide', :onchange => "upload_img(this);", :type => "file"
+          = f.file_field :logo_cache, :class => 'hide'
+
+- content_for :javascript do
+  :javascript
+    $(function() {
+      window.upload_img = function (input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#change_img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    })

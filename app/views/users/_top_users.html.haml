@@ -1,0 +1,11 @@
+.span4.task_well
+  %h1 Доска почета
+  - @users.each do |user|
+    .row.taskbox
+      .span1
+        = image_tag(user.avatar_url)
+      .span3
+        %p
+          = link_to user.full_name, user
+          %br Рейтинг пользователя: +#{user.rating}
+  = link_to "Все пользователи", users_path, :class => "btn btn-small btn-warning pull-right"

@@ -1,0 +1,17 @@
+= content_for(:filters) do
+  = render partial: 'tasks/filters'
+= render 'layouts/breadcrumbs'
+= render 'layouts/add_and_search_panel'
+
+
+#content
+  - if @tasks.present?
+    = render @tasks
+  - else
+    .article.task_well
+      .row
+        .span8
+          %h3 Ничего не найдено.
+  
+.pagination
+  = link_to_next_page @tasks, 'Загрузить больше задач', remote: true, id: "load_more_link", class: "btn btn-block", "data-loading-text" => "Loading...", type: "button"

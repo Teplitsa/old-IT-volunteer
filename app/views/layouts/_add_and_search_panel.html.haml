@@ -1,0 +1,9 @@
+= content_for(:search) do
+  .container.m-bottom20
+    .row
+      = content_for(:new_button)
+      .span5.pull-right
+        = form_tag current_search_path, method: :get, class: 'form-search' do
+          = text_field_tag :text, params[:text], placeholder: "Введите текст", :class => 'search-query'
+          %button.pull-right{:name => :nil, :type => 'submit', :class => 'btn', :title => 'Найти'}
+            %i.icon-search

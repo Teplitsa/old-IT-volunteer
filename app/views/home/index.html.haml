@@ -1,0 +1,47 @@
+#content
+  %article.task_well
+    .row
+      .span12.head
+        %h1 ItВолонтер – это биржа объявлений IT-поддержки общественных инициатив
+        %hr
+      .row.pull-left
+        .span4.bg-with-arrow
+          %h2
+            Опишите вашу
+            %br IT-потребность
+          %p Например: помощь с соц.сетями, мелкие правки по сайту, видеомонтаж
+        .span4.bg-with-arrow
+          %h2
+            Укажите форму
+            %br благодарности
+          %p Напишите, чем вы можете отплатить: спасибо, денежная компенсация, рекомендация
+        .span4.offset1.bg-without-arrow
+          %h2
+            Мы поможем
+            %br найти ресурсы
+          %p Назначайте вид благодарности, распространяйте объявление в соц.сетях
+    .row.whom
+      .span12
+        %h1 Почему это важно и кому это выгодно?
+        %hr.gray-line
+      .span4.offset1
+        %h2
+          = link_to 'НКО и общественным инициативам',              |
+                    page_path('nko-i-obschestvennym-initsiativam') |
+      .span4.offset1
+        %h2
+          =link_to 'IT-волонтерам', page_path('it-volonteram')
+      .span4.offset1
+        %h2
+          =link_to 'Профессиональным студиям', page_path('professionalnym-studiyam')
+
+.task_well
+  .row
+    .span12
+      %h1 Последние задачи организаций
+      = render 'tasks/task_with_thumb'
+
+.row
+  = render 'tasks/paid_tasks'
+  = render 'tasks/free_tasks'                 
+  = render 'users/top_users'

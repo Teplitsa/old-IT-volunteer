@@ -1,0 +1,57 @@
+%article.task_well
+  .row
+    .span8
+      .dialog-item-first
+        - dialog = @messages.shift
+        - collocutor = collocutor(dialog)
+
+        Диалог с  
+        = image_tag(collocutor.avatar.url(:thumb))
+        = link_to collocutor.full_name, collocutor
+
+        начат 
+        = l dialog.created_at, format: :short
+
+        = ignore_or_unignore_link(collocutor)
+        
+        .dialog-body
+          %pre= dialog.body     
+        %hr  
+
+      %ul.unstyled
+        - @messages.each do |message|
+          %li.row
+            .dialog-item
+              = image_tag(message.sender.avatar.url(:thumb))
+              = link_to message.sender.full_name, collocutor
+              = l message.created_at, format: :short
+              .dialog-body
+                %pre= message.body
+
+      - if can? :send_message, collocutor
+        .row
+          - @message ||= Message.new(receiver_id: collocutor.id, dialog_id: dialog.dialog_id)
+
+          = simple_form_for @message do |f|
+            
+            - if @message.errors.any?
+              .span8
+                #error_explanation.well.alert-error
+                  %h3
+                    = pluralize(@message.errors.count, "error")
+                    prohibited this message from being saved:
+                  %ul
+                    - @message.errors.full_messages.each do |msg|
+                      %li= msg
+
+            .span8
+              = f.input :receiver_id, as: :hidden
+              = f.input :dialog_id,   as: :hidden
+
+              .control-group
+                .controls= f.text_area :body, col: 40, rows: 7, class: "span8"
+
+            .span8.t-right= f.button :submit, 'Отправить', class: 'btn btn-success'
+
+      - else 
+        .alert вы не можете посылать ему сообщения

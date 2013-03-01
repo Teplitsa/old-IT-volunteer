@@ -1,0 +1,21 @@
+.control-group
+  %label.control-label.pull-left{:for => :prizes} Награда
+  %a.west{:href => "#", :title => "Награды – ключевая вещь для успешности вашей задачи. Обещайте только то, что вы сможете сделать. Если вы не сможете сделать то, что обещаете, тогда на вас обидятся."} 
+    %i.icon-question-sign 
+  .control-group
+    %label.checkbox.clear
+      %input#check_all{:type => "checkbox"} Выбрать все награды
+
+  - task_prizes = @task.task_prizes.reduce({}) { |a,t| a[t.prize_type_id] = t; a }
+
+  - PrizeType.all.each do |prize_type, index|
+    - task_prize = task_prizes[prize_type.id]
+
+    %label.checkbox.clear
+      = check_box_tag "task[task_prizes][#{index}][prize_type_id]", prize_type.id, !task_prize.nil?, class: 'checked'
+      %i.icon-gift
+      = prize_type.name
+
+    - unless prize_type.segregate
+      = number_field_tag "task[task_prizes][#{index}][count]", task_prize.try(:count), class: 'input-append'
+  

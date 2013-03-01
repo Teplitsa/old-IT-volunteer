@@ -1,0 +1,72 @@
+= render 'layouts/breadcrumbs'
+
+%article.task_well
+  .row
+    .span8 
+      .row.article-content-block
+        .span2
+          = image_tag(@user.avatar_url ? @user.avatar : 'default_avatar.png', class: "rounded")           
+        .span6
+          %h2
+            %span.first-name= @user.first_name
+            %span.last-name= @user.last_name
+          %p= @user.about
+        - if @user.city
+          .span4
+            - if can? :update, @user
+              Город:
+              = inplace_editable_link_to @user, 'city'
+            - else
+              Город: #{@user.city}
+      .row.article-content-block
+        .span8
+          %h3 Контакты и социальные сети:
+        - %w[email website skype twitter facebook linkedin].each_slice(3) do |contacts|
+          - contacts.each do |contact|
+            .span5
+              .row
+                .span1= contact.camelize + ':'
+                .span3
+                  - if can? :update, @user
+                    = inplace_editable_link_to @user, contact
+                  - else 
+                    = @user.send(contact)
+      .row.article-content-block
+        .span8
+          %h3 
+            Профессиональные интересы и навыки:
+          %p
+            - if can? :update, @user
+              = inplace_editable_link_to @user, :tag_list, {class: ' tags'} do
+                - @user.tag_list.each do |tag|
+                  %span.label.label-info= tag
+            - else
+              - @user.tag_list.each do |tag|
+                %span.label.label-info= tag
+
+      - if current_user == @user
+        = render partial: 'users/preferences'
+
+      .row.article-content-block
+        .span8
+          %h3 Ваши задачи:
+          = render 'tasks/tasks_in_table'
+
+    .span-usersidebar.span3
+      - if can?(:send_message, @user) && @user != current_user
+        .task-sidebar-block-item
+          = new_message_link @user, 'отправить сообщение'
+
+      - if can? :manage, @user
+        .task-sidebar-block-item
+          = link_to 'Редактировать профиль', edit_user_path, class: 'btn btn-mini btn-block'
+
+      - if can? :create, Task
+        = content_for(:new_button) do
+          .span2
+            = link_to new_task_path, class: 'btn btn-success btn-mini btn-block' do
+              %i.icon-plus-sign
+              Новая задача
+
+      = render 'organizations/new_button'
+      = render partial: 'messages/box'

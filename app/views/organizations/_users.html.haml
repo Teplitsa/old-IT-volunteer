@@ -1,0 +1,15 @@
+.task-sidebar-block-item
+  %ul.team-list
+    - @users.each do |role, users|
+      %li.team-role
+        .rolet= t("role.#{role.pluralize}")
+        %ul.user-list
+          - users.each do |u|
+            %li.user-list-item
+              .list-item-img
+                = image_tag(u.avatar_url(:thumb)) if u.avatar
+              .list-item-user
+                %span.user-name= u.full_name
+                %span.user-control
+                  %a{:href => "#"} Написать личное сообщение
+              = link_to 'x', eval("kick_#{role}_organization_path(:user_id => u)"), :method => :delete, :confirm => 'Вы уверены?' if can? "kick_#{role}", @organization
